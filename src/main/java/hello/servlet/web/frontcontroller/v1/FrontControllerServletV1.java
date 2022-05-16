@@ -28,14 +28,16 @@ public class FrontControllerServletV1 extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("FrontControllerServletV1.service");
-
+        //주소부분(uri)를 받아옴.
         String requestURI = request.getRequestURI();
-
+        //인터페이스로 꺼내기에 이것이 일관성이 좋음
+        //ControllerV1 controller = MemberFormControllerV1();
         ControllerV1 controller = controllerMap.get(requestURI);
         if(controller == null){
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);//404
             return;
         }
+        //인터페이스 호출
         controller.process(request, response);
     }
 }
