@@ -1,4 +1,4 @@
-package mixptc.service.domain.item;
+package mixptc.mixptcservice.domain.item;
 
 import lombok.Data;
 
