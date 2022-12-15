@@ -2,6 +2,8 @@ package mixptc.mixptcservice.web.basic;
 
 
 import lombok.RequiredArgsConstructor;
+import mixptc.mixptcservice.domain.item.DeliveryType;
+import mixptc.mixptcservice.domain.item.GenreCode;
 import mixptc.mixptcservice.domain.item.Item;
 import mixptc.mixptcservice.domain.item.ItemRepository;
 import org.springframework.stereotype.Controller;
@@ -11,14 +13,31 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/basic/items")
 @RequiredArgsConstructor //생성자 주입용
 public class BasicItemController {
-    //생성자만들기
+    //RequiredArgsConstructor: final이 붙은 멤버변수만 사용해서 생성자를 자동으로 만들어준다
+    //1개만 있을경우 @Autowired로 의존관계주입
     private final ItemRepository itemRepository;
+
+    @ModelAttribute("deliveryTypes")
+    public DeliveryType[] deliveryTypes() {return DeliveryType.values();}
+
+    @ModelAttribute("GenreCodes")
+    public List<GenreCode> genreCodes(){
+        List<GenreCode> genreCodes = new ArrayList<>();
+        genreCodes.add(new GenreCode("DICTIONARY", "사전"));
+        genreCodes.add(new GenreCode("WORK BOOK", "문제집"));
+        genreCodes.add(new GenreCode("NOVEL", "소설"));
+        genreCodes.add(new GenreCode("LITERATURE", "문학"));
+        genreCodes.add(new GenreCode("HISTORY", "역사"));
+        genreCodes.add(new GenreCode("ETC", "기타"));
+        return genreCodes;
+    }
 
     //가장처음 들어왔을때 상품목록뜨게하기
     @GetMapping
@@ -37,7 +56,10 @@ public class BasicItemController {
     }
 
     @GetMapping("/add")
-    public String addForm() {return "basic/addForm";}
+    public String addForm(Model model) {
+        model.addAttribute("item", new Item());
+        return "basic/addForm";
+    }
 
     @PostMapping("/add")
     public String addItem(Item item, RedirectAttributes redirectAttributes) {

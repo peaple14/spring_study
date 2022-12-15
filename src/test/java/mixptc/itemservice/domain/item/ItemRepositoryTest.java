@@ -1,7 +1,7 @@
 package mixptc.itemservice.domain.item;
 
-import mixptc.service.domain.item.Item;
-import mixptc.service.domain.item.ItemRepository;
+import mixptc.mixptcservice.domain.item.Item;
+import mixptc.mixptcservice.domain.item.ItemRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

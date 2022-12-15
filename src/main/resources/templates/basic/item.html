@@ -40,6 +40,36 @@
 
     <hr class="my-4">
 
+    <!-- single checkbox -->
+    <div>판매 여부</div>
+    <div>
+        <div class="form-check">
+            <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+    </div>
+
+    <!-- radio button -->
+    <div>
+        <div>배송 방식</div>
+        <div th:each="type : ${deliveryTypes}" class="form-check form-check-inline">
+            <input type="radio" th:field="*{item.deliveryType}" th:value="${type.name()}" class="form-check-input" disabled>
+            <label th:for="${#ids.prev('deliveryType')}" th:text="${type.description}" class="form-check-label">
+                PROXY
+            </label>
+        </div>
+    </div>
+
+    <!-- SELECT -->
+    <div>
+        <div>책 장르</div>
+        <select th:field="*{item.genreCode}" class="form-select" disabled>
+            <option value="">==책 장르 선택==</option>
+            <option th:each="genreCode : ${GenreCodes}" th:value="${genreCode.code}"
+                    th:text="${genreCode.displayName}">FAST</option>
+        </select>
+    </div>
+
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
