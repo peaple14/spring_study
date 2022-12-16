@@ -6,9 +6,13 @@ import mixptc.mixptcservice.domain.item.DeliveryType;
 import mixptc.mixptcservice.domain.item.GenreCode;
 import mixptc.mixptcservice.domain.item.Item;
 import mixptc.mixptcservice.domain.item.ItemRepository;
+import mixptc.mixptcservice.web.basic.form.ItemSaveForm;
+import mixptc.mixptcservice.web.basic.form.ItemUpdateForm;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -62,7 +66,28 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(Item item, RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if(form.getPrice() !=null && form.getQuantity() !=null){
+            int resultPrice = form.getPrice() * form.getQuantity();
+            if(resultPrice < 10000){
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null); //bindingResult는 model에 저절로 담김
+            }
+        }
+        //검증실패시
+        if(bindingResult.hasErrors()){
+            return "basic/addForm";
+        }
+
+        //폼 객체를 item으로 변환
+        Item item = new Item();
+        item.setItemName(form.getItemName());
+        item.setPrice(form.getPrice());
+        item.setQuantity(form.getQuantity());
+        item.setGenreCode(form.getGenreCode());
+        item.setDeliveryType(form.getDeliveryType());
+        item.setOpen(form.getOpen());
+
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
@@ -77,8 +102,25 @@ public class BasicItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
-        itemRepository.update(itemId, item);
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult) {
+
+        //특정 필드가 아닌 복합 룰 검증
+        if (form.getPrice() != null && form.getQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+
+        Item itemParam = new Item();
+        itemParam.setItemName(form.getItemName());
+        itemParam.setPrice(form.getPrice());
+        itemParam.setQuantity(form.getQuantity());
+        itemParam.setGenreCode(form.getGenreCode());
+        itemParam.setDeliveryType(form.getDeliveryType());
+        itemParam.setOpen(form.getOpen());
+
+        itemRepository.update(itemId, itemParam);
         return "redirect:/basic/items/{itemId}";
     }
 
