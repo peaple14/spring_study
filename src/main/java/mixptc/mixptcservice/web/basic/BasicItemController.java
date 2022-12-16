@@ -112,6 +112,10 @@ public class BasicItemController {
             }
         }
 
+        if (bindingResult.hasErrors()) {
+            return "basic/editForm";
+        }
+
         Item itemParam = new Item();
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());

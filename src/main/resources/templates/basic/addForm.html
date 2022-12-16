@@ -19,7 +19,7 @@
 <div class="container">
 
     <div class="py-5 text-center">
-        <h2>상품 등록</h2>
+        <h2 th:text="#{page.addItem}">상품 등록</h2>
     </div>
 
     <form action="item.html" th:action th:object="${item}" method="post">
@@ -29,7 +29,7 @@
         </div>
 
         <div>
-            <label for="itemName">상품명</label>
+            <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
             <input type="text" id="itemName" th:field="*{itemName}"
                    th:errorclass="field-error" class="form-control" placeholder="이름을 입력하세요">
             <div class="field-error" th:errors="*{itemName}">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div>
-            <label for="price">가격</label>
+            <label for="price" th:text="#{label.item.price}">가격</label>
             <input type="text" id="price" th:field="*{price}"
                    th:errorclass="field-error" class="form-control" placeholder="가격을 입력하세요">
             <div class="field-error" th:errors="*{price}">
@@ -46,7 +46,7 @@
         </div>
 
         <div>
-            <label for="quantity">수량</label>
+            <label for="quantity" th:text="#{label.item.quantity}">수량</label>
             <input type="text" id="quantity" th:field="*{quantity}"
                    th:errorclass="field-error" class="form-control" placeholder="수량을 입력하세요">
             <div class="field-error" th:errors="*{quantity}">
