@@ -1,4 +1,4 @@
-package mixptc.mixptcservice.web.basic.form;
+package mixptc.mixptcservice.web.item.form;
 
 import lombok.Data;
 import mixptc.mixptcservice.domain.item.DeliveryType;

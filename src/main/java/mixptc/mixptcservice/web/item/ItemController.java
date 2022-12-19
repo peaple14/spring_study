@@ -1,15 +1,13 @@
-package mixptc.mixptcservice.web.basic;
-
+package mixptc.mixptcservice.web.item;
 
 import lombok.RequiredArgsConstructor;
 import mixptc.mixptcservice.domain.item.DeliveryType;
 import mixptc.mixptcservice.domain.item.GenreCode;
 import mixptc.mixptcservice.domain.item.Item;
 import mixptc.mixptcservice.domain.item.ItemRepository;
-import mixptc.mixptcservice.web.basic.form.ItemSaveForm;
-import mixptc.mixptcservice.web.basic.form.ItemUpdateForm;
+import mixptc.mixptcservice.web.item.form.ItemSaveForm;
+import mixptc.mixptcservice.web.item.form.ItemUpdateForm;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -21,12 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/basic/items")
-@RequiredArgsConstructor //생성자 주입용
-public class BasicItemController {
+@RequestMapping("/items")
+@RequiredArgsConstructor
+public class ItemController {
     //RequiredArgsConstructor: final이 붙은 멤버변수만 사용해서 생성자를 자동으로 만들어준다
     //1개만 있을경우 @Autowired로 의존관계주입
     private final ItemRepository itemRepository;
+
 
     @ModelAttribute("deliveryTypes")
     public DeliveryType[] deliveryTypes() {return DeliveryType.values();}
@@ -43,12 +42,11 @@ public class BasicItemController {
         return genreCodes;
     }
 
-    //가장처음 들어왔을때 상품목록뜨게하기
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "basic/items";
+        return "items/items";
     }
 
     //목록에서 id를 클릭시
@@ -56,13 +54,13 @@ public class BasicItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item",item);
-        return "basic/item";
+        return "items/item";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
-        return "basic/addForm";
+        return "items/addForm";
     }
 
     @PostMapping("/add")
@@ -76,7 +74,7 @@ public class BasicItemController {
         }
         //검증실패시
         if(bindingResult.hasErrors()){
-            return "basic/addForm";
+            return "items/addForm";
         }
 
         //폼 객체를 item으로 변환
@@ -91,14 +89,14 @@ public class BasicItemController {
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/items/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item",item);
-        return "basic/editForm";
+        return "items/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
@@ -112,8 +110,8 @@ public class BasicItemController {
             }
         }
 
-        if (bindingResult.hasErrors()) {
-            return "basic/editForm";
+        if (bindingResult.hasErrors()) {//오류가 있을시
+            return "items/editForm";
         }
 
         Item itemParam = new Item();
@@ -125,7 +123,7 @@ public class BasicItemController {
         itemParam.setOpen(form.getOpen());
 
         itemRepository.update(itemId, itemParam);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 
     /**
