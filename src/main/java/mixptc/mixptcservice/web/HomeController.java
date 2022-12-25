@@ -1,4 +1,4 @@
-package mixptc.mixptcservice;
+package mixptc.mixptcservice.web;
 
 import mixptc.mixptcservice.domain.member.Member;
 import mixptc.mixptcservice.web.SessionConst;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 public class HomeController {
 
     @GetMapping("/")
-    public String homeLoginV3ArgumentResolver(@Login Member loginMember, Model model) {
+    public String homeLogin(@Login Member loginMember, Model model) {
         if (loginMember == null) {//세션에 데이터없으면 home
             return "home";
         }

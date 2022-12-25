@@ -1,4 +1,4 @@
-package mixptc.mixptcservice.login;
+package mixptc.mixptcservice.web.login;
 
 import lombok.RequiredArgsConstructor;
 import mixptc.mixptcservice.domain.login.LoginService;
@@ -49,10 +49,10 @@ public class LoginController { //로그인 담당하는 컨트롤러
         //세션에 로그인한 회원정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
+
         return "redirect:" + redirectURL;
 
     }
-
 
 
     @PostMapping("/logout")

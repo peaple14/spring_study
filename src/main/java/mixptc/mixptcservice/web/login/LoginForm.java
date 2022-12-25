@@ -1,4 +1,4 @@
-package mixptc.mixptcservice.login;
+package mixptc.mixptcservice.web.login;
 
 import lombok.Data;
 

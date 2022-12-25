@@ -24,6 +24,20 @@
         로그인
       </button>
     </div>
+    <div class="col">
+      <button class="w-100 btn btn-dark btn-lg"
+              onclick="location.href='items.html'"
+              th:onclick="|location.href='@{/members/findId}'|" type="button">
+        ID찾기
+      </button>
+    </div>
+    <div class="col">
+      <button class="w-100 btn btn-dark btn-lg"
+              onclick="location.href='items.html'"
+              th:onclick="|location.href='@{/members/findPassword}'|" type="button">
+        비밀번호찾기
+      </button>
+    </div>
   </div>
   <hr class="my-4">
 </div> <!-- /container -->

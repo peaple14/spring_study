@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/members/add", "/login", "/logout",
-                        "/css/**", "/*.ico", "/error");//제외하는것들
+                        "/css/**", "/*.ico", "/error","/findId","/findPassword");//제외하는것들
     }
 
     @Bean

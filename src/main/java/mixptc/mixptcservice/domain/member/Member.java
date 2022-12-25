@@ -19,4 +19,12 @@ public class Member {
     @NotEmpty
     private String password;
 
+    @NotNull
+    private Long tel;
+
+
+    private Long findTel;
+
+
+
 }
