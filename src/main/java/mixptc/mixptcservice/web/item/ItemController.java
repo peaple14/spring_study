@@ -1,6 +1,7 @@
 package mixptc.mixptcservice.web.item;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mixptc.mixptcservice.domain.item.DeliveryType;
 import mixptc.mixptcservice.domain.item.GenreCode;
 import mixptc.mixptcservice.domain.item.Item;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class ItemController {
     //RequiredArgsConstructor: final이 붙은 멤버변수만 사용해서 생성자를 자동으로 만들어준다
     //1개만 있을경우 @Autowired로 의존관계주입
     private final ItemRepository itemRepository;
+    
 
 
     @ModelAttribute("deliveryTypes")

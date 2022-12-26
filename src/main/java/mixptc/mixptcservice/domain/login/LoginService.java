@@ -1,6 +1,7 @@
 package mixptc.mixptcservice.domain.login;
 
 import lombok.RequiredArgsConstructor;
+
 import mixptc.mixptcservice.domain.member.Member;
 import mixptc.mixptcservice.domain.member.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,6 @@ public class LoginService {
                 .filter(m -> m.getPassword().equals(password)) //아이디와 비밀번호가 맞을시
                 .orElse(null); //다를시 null리턴
     }
+
+
 }

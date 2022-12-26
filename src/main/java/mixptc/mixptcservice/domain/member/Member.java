@@ -23,8 +23,6 @@ public class Member {
     private Long tel;
 
 
-    private Long findTel;
-
 
 
 }

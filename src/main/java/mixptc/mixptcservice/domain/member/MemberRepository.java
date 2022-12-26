@@ -21,6 +21,7 @@ public class MemberRepository {
         return store.get(id);
     }
 
+
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
@@ -31,8 +32,11 @@ public class MemberRepository {
                 .findFirst();
     }
 
-
-
+    public Optional<Member> findByTel(Long tel) {
+        return findAll().stream()
+                .filter(m -> m.getTel().equals(tel))
+                .findFirst();
+    }
 
 
     public void clearStore(){

@@ -1,6 +1,7 @@
 package mixptc.mixptcservice.web.login;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mixptc.mixptcservice.domain.login.LoginService;
 import mixptc.mixptcservice.domain.member.Member;
 import mixptc.mixptcservice.web.SessionConst;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class LoginController { //로그인 담당하는 컨트롤러
@@ -48,7 +49,6 @@ public class LoginController { //로그인 담당하는 컨트롤러
         HttpSession session = request.getSession();
         //세션에 로그인한 회원정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-
 
         return "redirect:" + redirectURL;
 
