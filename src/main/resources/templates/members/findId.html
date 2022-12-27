@@ -30,15 +30,15 @@
 
         <div>
             <label for="loginId">이름</label>
-            <input type="text" id="loginId" th:field="*{findtel}" class="form-control"
+            <input type="text"  id="loginId" th:field="*{findname}" class="form-control"
                    th:errorclass="field-error">
-            <div class="field-error" th:errors="*{findtel}" />
+            <div class="field-error" th:errors="*{findname}" />
         </div>
         <div>
             <label for="password">전화번호</label>
-            <input type="text" id="password" th:field="*{findname}" class="form-control"
+            <input type="text" value="" id="password" th:field="*{findtel}" class="form-control"
                    th:errorclass="field-error">
-            <div class="field-error" th:errors="*{findname}" />
+            <div class="field-error" th:errors="*{findtel}" />
         </div>
 
         <hr class="my-4">
@@ -48,7 +48,7 @@
                 <button class="w-100 btn btn-primary btn-lg" type="submit">아이디찾기</button>
             </div>
             <div class="col">
-                <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='findIdResult.html'"
+                <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='members/findIdResult.html'"
                         th:onclick="|location.href='@{/}'|"
                         type="button">취소</button>
             </div>
