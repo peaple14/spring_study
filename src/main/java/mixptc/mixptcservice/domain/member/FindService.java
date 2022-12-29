@@ -21,6 +21,12 @@ public class FindService {
                 .orElse(null); //다를시 null리턴
     }
 
+    public Member FPW(String Name,String loginid) {
+        return memberRepository.findByID(loginid)
+                .filter(m -> m.getName().equals(Name))//이름과 전화번호가 맞을시
+                .orElse(null); //다를시 null리턴
+    }
+
 
 
 

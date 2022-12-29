@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mixptc.mixptcservice.domain.member.Member;
 import mixptc.mixptcservice.domain.member.MemberRepository;
-import mixptc.mixptcservice.web.login.LoginForm;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +28,7 @@ public class MemberController {
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute Member member, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("errors={}",bindingResult);
             return "members/addMemberForm";
         }
         memberRepository.save(member);

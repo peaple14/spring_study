@@ -38,6 +38,12 @@ public class MemberRepository {
                 .findFirst();
     }
 
+    public Optional<Member> findByID(String id) {
+        return findAll().stream()
+                .filter(m -> m.getLoginId().equals(id))
+                .findFirst();
+    }
+
 
     public void clearStore(){
         store.clear();

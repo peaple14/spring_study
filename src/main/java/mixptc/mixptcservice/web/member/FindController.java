@@ -20,59 +20,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/members")
 public class FindController {
 
-/*    221227 - 할것
-1.bindingresult수정
-2.맞을시 findid로 이동수정
-3.findidresult->webconfig 수정
-4.password만들기*/
+/*221229할일
+* 1.비번칠때 오류뜨는거
+* 2.먼가 망한느낌이 든다.
+* 3.뭔가 만지니 아이디도 안됨.
+* */
 
     private final FindService findService;
 
 
     @GetMapping("/findId")
     public String findI(@ModelAttribute("findidform") FindIdForm form) {
-        log.info("result3={}", form);
         return "members/findId";
     }
 
     @PostMapping("/findId")
-    public String FindI(@Validated @ModelAttribute FindIdForm form, BindingResult bindingResult, Model model) {
+    public String FindI(@Validated @ModelAttribute("findidform") FindIdForm form, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
             return "members/findId";
         }
 
         Member findMember = findService.FId(form.getFindname(), form.getFindtel()); //여기서 이름,전화번호가 같은걸로 찾음.
-        log.info("result1={}", findMember);
         if (findMember == null) {
             bindingResult.reject("findFail", "아이디가 존재하지 않습니다.");
             return "/members/findId";
         }
-        model.addAttribute(findMember);
-
-        return "redirect:/findIdResult";
+        model.addAttribute("findMember", findMember);
+        return "members/findIdResult";
 
     }
 
-    @GetMapping("/findIdResult")
-    public String findIR(@ModelAttribute FindIdForm form, Model model) {
-        log.info("result2={}", form);
-        model.addAttribute("fid", form);
-        return "redirect:/findIdResult";
-    }
-
-
-
-  /*  @GetMapping("/findIdResult")
-    public String FindIR(@ModelAttribute Member member, Model model) {
-
-
-    }*/
-
-
-    @GetMapping("/members/findPassword")
+    @GetMapping("/findPassword")
     public String findP(@ModelAttribute("FindpasswordForm") FindpasswordForm form) {
         return "members/findPassword";
+    }
+
+
+    @PostMapping("/findPassword")
+    public String findP(@Validated @ModelAttribute("FindpasswordForm") FindpasswordForm form, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "members/findPassword";
+        }
+
+        Member findMember = findService.FPW(form.getFindname(), form.getFindId());
+        if (findMember == null) {
+            bindingResult.reject("findFail", "비밀번호가 존재하지 않습니다.");
+            return "/members/findPassword";
+        }
+        model.addAttribute("findMember", findMember);
+        return "members/findPasswordResult";
+
     }
 }

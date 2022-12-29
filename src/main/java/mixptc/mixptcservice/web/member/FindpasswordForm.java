@@ -7,9 +7,10 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class FindpasswordForm {
 
-    @NotEmpty
-    private String findId;
 
-    @NotEmpty
-    private long findtel;
+    private String findId;
+    
+    private String findname;
+
+    private String findpassword;
 }

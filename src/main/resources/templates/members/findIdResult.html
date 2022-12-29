@@ -10,11 +10,11 @@
   <div class="py-5 text-center">
     <h2>아이디찾기 결과</h2>
   </div>
-      <h4 class="mb-3" th:text="|찾으신아이디: ${findid}|">찾던 아이디</h4>
+      <h4 class="mb-3" th:text="|찾으신아이디: ${findMember.getLoginId()}|">찾던 아이디</h4>
     <div class="col">
       <button class="w-100 btn btn-dark btn-lg"
               onclick="location.href='home.html'"
-              th:onclick="|location.href='@{/home}'|" type="button">
+              th:onclick="|location.href='@{/}'|" type="button">
         돌아가기
       </button>
     </div>
