@@ -42,6 +42,10 @@ public class FindController {
         }
 
         Member findMember = findService.FId(form.getFindname(), form.getFindtel()); //여기서 이름,전화번호가 같은걸로 찾음.
+/*        log.info("아디={}",findMember.getLoginId());
+        log.info("비번={}",findMember.getPassword());
+        log.info("이름={}",findMember.getName());
+        log.info("전번={}",findMember.getTel());*/
         if (findMember == null) {
             bindingResult.reject("findFail", "아이디가 존재하지 않습니다.");
             return "/members/findId";
