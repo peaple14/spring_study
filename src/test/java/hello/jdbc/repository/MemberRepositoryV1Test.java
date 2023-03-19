@@ -5,7 +5,6 @@ import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
@@ -17,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 @Slf4j
 class MemberRepositoryV1Test {//ctrl+shift+t 단축키
 
-    MemberRepositoryV1 repository;
+    MemberRepositoryV2 repository;
 
     @BeforeEach
 //각테스트가 실행되기직전에 한번 실행
@@ -29,7 +28,7 @@ class MemberRepositoryV1Test {//ctrl+shift+t 단축키
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);
-        repository = new MemberRepositoryV1(dataSource);
+        repository = new MemberRepositoryV2(dataSource);
 
 
     }
