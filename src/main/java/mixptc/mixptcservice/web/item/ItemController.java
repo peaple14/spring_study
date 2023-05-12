@@ -88,10 +88,11 @@ public class ItemController {
         item.setDeliveryType(form.getDeliveryType());
         item.setOpen(form.getOpen());
 
+
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/items/items/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
