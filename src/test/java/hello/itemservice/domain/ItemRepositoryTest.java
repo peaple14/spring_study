@@ -8,16 +8,30 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@commit 쓰면 롤백안되고 내용 볼수있음.
+@Transactional
 @SpringBootTest
 class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+
+    //@Transactional이 알아서 롤백까지 다 해줌.######
+    //데이터소스와 트랜잭션매니저는 자동 빈등록
+   /* @Autowired
+    PlatformTransactionManager transactionManager;
+    TransactionStatus status;
+    @BeforeEach
+    void beforeEach() {
+        //트랜잭션 시작
+        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+    }*/
 
     @AfterEach
     void afterEach() {
@@ -25,7 +39,10 @@ class ItemRepositoryTest {
         if (itemRepository instanceof MemoryItemRepository) {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
+        //트랜잭션 롤백
+        //transactionManager.rollback(status);
     }
+
 
     @Test
     void save() {
