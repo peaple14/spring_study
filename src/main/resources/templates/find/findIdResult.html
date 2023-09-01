@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>아이디 찾기 결과</title>
+  <!-- Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 560px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="py-5 text-center">
+    <h2>아이디 찾기 결과</h2>
+  </div>
+
+  <div class="text-center mb-3">
+    <h4 th:text="|찾으신 아이디: ${foundId}|">찾던 아이디</h4>
+  </div>
+
+  <hr class="my-4">
+
+  <div class="text-center">
+    <button class="btn btn-primary" onclick="location.href='/login'">돌아가기</button>
+  </div>
+
+</div> <!-- /container -->
+
+<!-- Bootstrap JS and Popper.js scripts (for dropdowns, modals, etc.) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
