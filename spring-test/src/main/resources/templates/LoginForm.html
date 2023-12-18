@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* 글자 크기 조정 */
+        .small-text {
+            font-size: 14px; /* 원하는 글자 크기로 조정 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">로그인</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/login}" th:object="${LoginForm}" method="post">
+                        <div>
+                            <label for="loginId">로그인 ID</label>
+                            <input type="text" id="loginId" th:field="*{login_Id}" class="form-control">
+                        </div>
+                        <div>
+                            <label for="password">비밀번호</label>
+                            <input type="password" id="password" th:field="*{login_password}" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-sm">로그인</button>
+                        <div th:if="${param.error}" class="text-danger mt-2">
+                            로그인 정보가 올바르지 않습니다.
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+<!--                            thymleaf를 사용하려했지만 스택오버플로우에서도 2개밖에안나온 오류나와서 패스-->
+                            <a href='findId' class="btn btn-primary btn-block btn-sm small-text">아이디 찾기</a>
+                        </div>
+                        <div class="col">
+                            <a href='findpassword' class="btn btn-primary btn-block btn-sm small-text">비밀번호 찾기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href='/newmember' class="btn btn-secondary btn-block btn-sm small-text">회원 가입</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

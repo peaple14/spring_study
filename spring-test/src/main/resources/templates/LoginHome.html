@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Success</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .center-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="container center-screen">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">로그인 성공</h4>
+        </div>
+        <div class="card-body">
+            <p>아이디: <span th:text="${id}"></span></p>
+            <p>비밀번호: <span th:text="${password}"></span></p>
+            <p>이메일: <span th:text="${email}"></span></p>
+        </div>
+        <div class="card-footer text-center">
+            <p>로그인에 성공했습니다!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js scripts (for dropdowns, modals, etc.) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
