@@ -1,0 +1,114 @@
+package hello.itemservice.web.basic;
+import hello.itemservice.domain.item.Item;
+import hello.itemservice.domain.item.ItemRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
+@Controller
+@RequestMapping("/basic/items")
+@RequiredArgsConstructor//생성자 하나일시 autowired 제외가능
+public class BasicItemController {
+    private final ItemRepository itemRepository;
+
+    /*@Autowired //@RequiredArgsConstructor로 제외됨.
+    public BasicItemController(ItemRepository itemRepository){
+    this.itemRepository = itemRepository;}*/
+
+
+    @GetMapping
+    public String items(Model model) {
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        return "basic/items";
+    }
+
+    @GetMapping("/{itemId}")
+    public String item(@PathVariable long itemId,Model model) {
+        Item item = itemRepository.findById(itemId); //여긴 조회해서 넣은것
+        model.addAttribute("item", item);
+        return "basic/item";
+    }
+
+    @GetMapping("/add")
+    public String addForm(){
+        return "basic/addForm";
+    }
+    //@PostMappingng("/add")
+    public String addItemV1(@RequestParam String itemName,
+                       @RequestParam int price,
+                       @RequestParam Integer quantity,
+                        Model model){
+        Item item = new Item(); //여긴 저장된것 결과물을 넣은것
+        item.setItemName(itemName);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+        itemRepository.save(item);
+        model.addAttribute("item",item);
+
+        return "basic/item";
+    }
+
+
+    @PostMapping("/add")
+    public String addItemV2(@ModelAttribute("item") Item item,Model model){
+
+        itemRepository.save(item);
+//      model.addAttribute("item",item); //자동추가,생략가능
+        //@ModelAttribute 하는일
+        //요청파라미터 프로퍼티 접근법(setXXX)로 입력
+        //modelattribute의item이 밑의 "item"부분에 들어가기에 바꾸면 안됨.(모델에추가)
+
+        return "basic/item";
+    }
+
+    @PostMapping("/add")//바로밑의 Item->item 첫글자만 소문자로 모델어트리뷰트에 담김.
+    public String addItemV3(@ModelAttribute Item item) {
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
+//    @PostMapping("/add")//@ModelAttribute 생략 가능
+    public String addItemV4(Item item) {
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
+//    @PostMapping("/add")//Redirect해결버전 새로고침시 get된게반복.
+    public String addItemV5(Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId();
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());//밑의{itemId}로 치환됨.
+        redirectAttributes.addAttribute("status", true);//쿼리파라미터로 넘어감
+        return "redirect:/basic/items/{itemId}";
+    }
+    @GetMapping("/{itemid}/edit")//get:상품수정폼
+    public String editForm(@PathVariable Long itemId,Model model){
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")//post:상품수정처리
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
+    }
+
+
+    @PostConstruct
+    public void init() {
+
+        itemRepository.save(new Item("testA", 10000, 10));
+        itemRepository.save(new Item("testB", 20000, 20));
+    }
+}
